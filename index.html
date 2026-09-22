@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Agendamentos da Barbearia Norte." />
+  <title>Barbearia Norte | Agendamento</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" /><link rel="stylesheet" href="pix.css" />
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#inicio"><b>BN</b><span>Barbearia Norte</span></a>
+    <nav><a href="#servicos">Servicos</a><a href="#minha-reserva">Minha reserva</a><a href="#sobre">O estudio</a><a class="nav-action" href="#agendar">Agendar</a></nav>
+  </header>
+  <main>
+    <section class="hero" id="inicio">
+      <div class="hero-image" role="img" aria-label="Barbeiro preparando atendimento"></div>
+      <div class="hero-content">
+        <p class="eyebrow">Cortes com identidade</p>
+        <h1>Seu horario.<br />Seu estilo.</h1>
+        <p>Cortes classicos e contemporaneos, barba e acabamento em um estudio feito para voce.</p>
+        <a class="button primary" href="#agendar">Escolher horario <i data-lucide="arrow-down-right"></i></a>
+      </div>
+      <span class="hero-location"><i data-lucide="map-pin"></i> Rua das Flores, 214 - Centro</span>
+    </section>
+
+    <section class="section" id="servicos">
+      <div class="section-head"><div><p class="eyebrow">O que fazemos</p><h2>Servicos pensados no detalhe</h2></div><p>Escolha o atendimento que combina com seu momento. O tempo da agenda se ajusta automaticamente.</p></div>
+      <div class="service-grid" id="service-list"></div>
+    </section>
+
+    <section class="booking section" id="agendar">
+      <div class="booking-copy">
+        <p class="eyebrow">Reserva online</p><h2>Vamos encontrar seu melhor horario.</h2>
+        <p>Selecione servico, data e horario. A confirmacao e enviada direto para o WhatsApp da barbearia.</p>
+        <div class="steps"><span class="active"><b>1</b> Servico</span><span><b>2</b> Horario</span><span><b>3</b> Confirmacao</span></div>
+        <aside><i data-lucide="circle-alert"></i><p>Para reservar, pode ser solicitado um sinal via PIX. Faltas ou atrasos acima de 15 minutos seguem a politica informada antes da confirmacao.</p></aside>
+      </div>
+      <form class="booking-panel" id="booking-form">
+        <label>Servico<select id="service-select" required></select></label>
+        <fieldset><legend>Data</legend><div class="date-list" id="date-list"></div></fieldset>
+        <fieldset><legend>Horarios disponiveis</legend><div class="time-list" id="time-list"></div></fieldset>
+        <div class="customer-fields"><label>Seu nome<input name="name" autocomplete="name" placeholder="Como voce quer ser chamado?" required /></label><label>WhatsApp<input name="phone" autocomplete="tel" inputmode="tel" placeholder="(00) 00000-0000" required /></label></div>
+        <label class="check"><input type="checkbox" required /><span>Li e aceito a politica de reserva e atraso.</span></label>
+        <output class="summary" id="booking-summary">Escolha um servico, data e horario.</output>
+        <button class="button primary" type="submit">Reservar pelo WhatsApp <i data-lucide="message-circle"></i></button>
+      </form>
+    </section>
+
+    <section class="reservation section" id="minha-reserva">
+      <div><p class="eyebrow">Acompanhe seu horario</p><h2>Minha reserva</h2><p>Consulte seu atendimento, reveja o sinal PIX ou cancele dentro da politica da barbearia.</p></div>
+      <div class="reservation-panel"><form id="reservation-lookup"><label>Codigo da reserva<input id="lookup-code" autocomplete="off" placeholder="BN-0000000-00" required /></label><label>WhatsApp usado na reserva<input id="lookup-phone" inputmode="tel" autocomplete="tel" placeholder="(00) 00000-0000" required /></label><button class="button primary" type="submit">Consultar reserva <i data-lucide="search"></i></button></form><output id="lookup-feedback" class="lookup-feedback">Informe os dados da sua reserva.</output><div id="reservation-details" class="reservation-details" hidden><div class="reservation-summary"><span id="reservation-status"></span><h3 id="reservation-service"></h3><p id="reservation-date"></p><small id="reservation-code"></small></div><div class="reservation-actions"><button id="resend-pix" class="button primary" type="button">Reenviar instrucoes PIX <i data-lucide="message-circle"></i></button><button id="cancel-reservation" class="text-button" type="button">Cancelar reserva</button></div></div></div>
+    </section>
+
+    <section class="section about" id="sobre"><div><p class="eyebrow">Barbearia Norte</p><h2>Tempo bem gasto tambem e autocuidado.</h2></div><div><p>Atendimento com hora marcada, conversa boa e tecnica precisa. Cada corte comeca entendendo sua rotina e termina com um visual que funciona fora da cadeira.</p><dl><div><dt>Ter a Sex</dt><dd>09:00 - 20:00</dd></div><div><dt>Sabado</dt><dd>09:00 - 17:00</dd></div><div><dt>Domingo</dt><dd>Fechado</dd></div></dl></div></section>
+  </main>
+  <footer><span>Barbearia Norte</span><span>Agendamentos com hora marcada</span><a href="#agendar">Agendar agora</a></footer>
+  <dialog id="success-dialog"><button class="close" aria-label="Fechar" data-close><i data-lucide="x"></i></button><div class="dialog-icon"><i data-lucide="calendar-check"></i></div><p class="eyebrow">Reserva criada</p><h2>Falta confirmar o sinal.</h2><p id="success-message"></p><div class="pix-box" id="pix-details" hidden><span>Sinal de reserva</span><strong id="pix-value"></strong><small id="pix-recipient"></small><code id="pix-key"></code><button class="copy-pix" type="button" id="copy-pix">Copiar chave PIX</button></div><button class="button primary" id="send-proof" type="button">Enviar comprovante <i data-lucide="message-circle"></i></button></dialog>
+  <script src="https://unpkg.com/lucide@latest"></script><script src="demo-store.js"></script><script src="script.js"></script>
+</body>
+</html>
