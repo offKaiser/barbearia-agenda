@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Agendamentos da Barbearia Norte." />
-  <title>Barbearia Norte | Agendamento</title>
+  <meta name="description" content="Agendamentos online para prestadores de servico." />
+  <title>Agendamento online</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
@@ -12,7 +12,7 @@
 </head>
 <body>
   <header class="topbar">
-    <a class="brand" href="#inicio"><b>BN</b><span>Barbearia Norte</span></a>
+    <a class="brand" href="#inicio"><b data-brand-initials>BN</b><span data-brand-name>Barbearia Norte</span></a>
     <nav><a href="#servicos">Servicos</a><a href="#minha-reserva">Minha reserva</a><a href="#sobre">O estudio</a><a class="nav-action" href="#agendar">Agendar</a></nav>
   </header>
   <main>
@@ -20,11 +20,11 @@
       <div class="hero-image" role="img" aria-label="Barbeiro preparando atendimento"></div>
       <div class="hero-content">
         <p class="eyebrow">Cortes com identidade</p>
-        <h1>Seu horario.<br />Seu estilo.</h1>
-        <p>Cortes classicos e contemporaneos, barba e acabamento em um estudio feito para voce.</p>
+        <h1 data-brand-hero-title>Seu horario. Seu estilo.</h1>
+        <p data-brand-hero-description>Escolha seu servico e reserve seu melhor horario.</p>
         <a class="button primary" href="#agendar">Escolher horario <i data-lucide="arrow-down-right"></i></a>
       </div>
-      <span class="hero-location"><i data-lucide="map-pin"></i> Rua das Flores, 214 - Centro</span>
+      <span class="hero-location"><i data-lucide="map-pin"></i> <span data-brand-address>Rua das Flores, 214 - Centro</span></span>
     </section>
 
     <section class="section" id="servicos">
@@ -57,8 +57,8 @@
 
     <section class="section about" id="sobre"><div><p class="eyebrow">Barbearia Norte</p><h2>Tempo bem gasto tambem e autocuidado.</h2></div><div><p>Atendimento com hora marcada, conversa boa e tecnica precisa. Cada corte comeca entendendo sua rotina e termina com um visual que funciona fora da cadeira.</p><dl><div><dt>Ter a Sex</dt><dd>09:00 - 20:00</dd></div><div><dt>Sabado</dt><dd>09:00 - 17:00</dd></div><div><dt>Domingo</dt><dd>Fechado</dd></div></dl></div></section>
   </main>
-  <footer><span>Barbearia Norte</span><span>Agendamentos com hora marcada</span><a href="#agendar">Agendar agora</a></footer>
+  <footer><span data-brand-name>Barbearia Norte</span><span>Agendamentos com hora marcada</span><a href="#agendar">Agendar agora</a></footer>
   <dialog id="success-dialog"><button class="close" aria-label="Fechar" data-close><i data-lucide="x"></i></button><div class="dialog-icon"><i data-lucide="calendar-check"></i></div><p class="eyebrow">Reserva criada</p><h2>Falta confirmar o sinal.</h2><p id="success-message"></p><div class="pix-box" id="pix-details" hidden><span>Sinal de reserva</span><strong id="pix-value"></strong><small id="pix-recipient"></small><code id="pix-key"></code><button class="copy-pix" type="button" id="copy-pix">Copiar chave PIX</button></div><button class="button primary" id="send-proof" type="button">Enviar comprovante <i data-lucide="message-circle"></i></button></dialog>
-  <script src="https://unpkg.com/lucide@latest"></script><script src="demo-store.js"></script><script src="script.js"></script>
+  <script src="https://unpkg.com/lucide@latest"></script><script src="brand.js"></script><script>applyBusinessBrand();</script><script src="demo-store.js"></script><script src="script.js"></script><script src="security-demo.js"></script>
 </body>
 </html>

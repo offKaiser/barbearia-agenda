@@ -1,11 +1,8 @@
 (() => {
-  const key = "barbearia-norte-demo-v2";
+  const brand = window.BusinessBrand || {};
+  const key = brand.storageKey || "agenda-demo";
   const defaults = {
-    services: [
-      { id: "corte", name: "Corte classico", description: "Consultoria rapida, corte e finalizacao.", duration: 45, price: 55, active: true },
-      { id: "barba", name: "Barba completa", description: "Toalha quente, desenho e tratamento da pele.", duration: 35, price: 45, active: true },
-      { id: "combo", name: "Corte + barba", description: "A experiencia completa, sem pressa.", duration: 80, price: 90, active: true },
-    ],
+    services: brand.defaultServices || [],
     schedule: { 0: null, 1: null, 2: { open: "09:00", close: "20:00", breakStart: "", breakEnd: "" }, 3: { open: "09:00", close: "20:00", breakStart: "", breakEnd: "" }, 4: { open: "09:00", close: "20:00", breakStart: "", breakEnd: "" }, 5: { open: "09:00", close: "20:00", breakStart: "", breakEnd: "" }, 6: { open: "09:00", close: "17:00", breakStart: "", breakEnd: "" }, overrides: {} },
     bookings: [],
   };
@@ -31,8 +28,11 @@
     saveSchedule(schedule) { const data = read(); data.schedule = schedule; write(data); }, getBookings: () => read().bookings, available,
     createBooking(data) {
       const selected = service(data.serviceId);
+      const name = String(data.name || "").trim(), phone = String(data.phone || "").replace(/\D/g, "");
+      if (name.length < 2 || !/^\d{10,15}$/.test(phone) || data.policyAccepted !== true) throw new Error("Confira nome, WhatsApp e aceite da politica.");
       if (!selected || !available(data.date, data.serviceId).includes(data.time)) throw new Error("Horario indisponivel. Escolha outro.");
-      const store = read(), booking = { code: `BN-${Date.now().toString().slice(-7)}-${Math.floor(Math.random() * 90 + 10)}`, name: data.name, phone: data.phone, service: selected.name, serviceId: selected.id, duration: selected.duration, price: selected.price, date: data.date, time: data.time, status: "aguardando_pix", payment_status: "aguardando", payment_amount: 2000, payment_reference: `PIX-DEMO-${Date.now().toString().slice(-6)}` };
+      const prefix = String(brand.initials || "AG").replace(/\W/g, "").toUpperCase().slice(0, 4) || "AG";
+      const store = read(), booking = { code: `${prefix}-${Date.now().toString().slice(-7)}-${Math.floor(Math.random() * 90 + 10)}`, name, phone, service: selected.name, serviceId: selected.id, duration: selected.duration, price: selected.price, date: data.date, time: data.time, status: "aguardando_pix", payment_status: "aguardando", payment_amount: Number(brand.depositCents) || 0, payment_reference: `PIX-DEMO-${Date.now().toString().slice(-6)}` };
       store.bookings.push(booking); write(store); return booking;
     },
     updateBooking(code, changes) { const data = read(), booking = data.bookings.find((item) => item.code === code); if (!booking) return false; Object.assign(booking, changes); write(data); return true; },

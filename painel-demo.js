@@ -7,6 +7,26 @@
   const weekdays = ["Domingo", "Segunda-feira", "Terca-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sabado"];
   const money = (value) => (value / 100).toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
   const serviceForm = document.querySelector("#service-form");
+  const brand = window.BusinessBrand;
+  const brandForm = document.querySelector("#brand-form");
+  document.querySelector("#brand-name").value = brand.businessName;
+  document.querySelector("#brand-initials").value = brand.initials;
+  document.querySelector("#brand-whatsapp").value = brand.whatsapp;
+  document.querySelector("#brand-address").value = brand.address;
+  document.querySelector("#brand-cancellation-hours").value = brand.policy.cancellationHours;
+  brandForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const businessName = document.querySelector("#brand-name").value.trim();
+    const initials = document.querySelector("#brand-initials").value.trim().toUpperCase();
+    const whatsapp = document.querySelector("#brand-whatsapp").value.replace(/\D/g, "");
+    const address = document.querySelector("#brand-address").value.trim();
+    const cancellationHours = Number(document.querySelector("#brand-cancellation-hours").value);
+    if (!businessName || !initials || !/^\d{10,15}$/.test(whatsapp) || !address || !Number.isInteger(cancellationHours)) return;
+    Object.assign(brand, { businessName, initials, whatsapp, address, policy: { ...brand.policy, cancellationHours } });
+    localStorage.setItem(`${brand.storageKey}-brand`, JSON.stringify(brand));
+    applyBusinessBrand();
+    document.querySelector("#brand-feedback").textContent = "Identidade salva nesta demonstracao.";
+  });
 
   function resetService() { serviceForm.reset(); document.querySelector("#service-id").value = ""; }
   function populateAgendaFilters() {

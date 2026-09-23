@@ -44,6 +44,12 @@ GitHub Pages hospeda apenas arquivos estaticos. Por isso, esta versao persiste s
 
 Isso permite uma demonstracao funcional sem instalar Node.js, banco de dados ou servidor. Como consequencia, os dados nao sao compartilhados entre dispositivos, visitantes ou navegadores. Limpar os dados do navegador tambem limpa a demonstracao.
 
+## Personalizacao da marca
+
+Edite `brand.js` para reutilizar a demonstracao com outro prestador. O arquivo concentra nome do negocio, profissional, iniciais, WhatsApp, endereco, cores, politica de reserva, logo, imagem de fundo e os servicos iniciais. A mesma configuracao e carregada na pagina publica e no painel. Use uma `storageKey` diferente para que cada demonstracao tenha dados isolados no navegador.
+
+No painel demonstrativo, a secao **Meu negocio** permite alterar nome, iniciais, WhatsApp, endereco e antecedencia de cancelamento sem editar arquivos. Esses dados ficam salvos apenas no navegador da demonstracao.
+
 ## Executar localmente
 
 Nao ha dependencias para esta versao. Basta abrir `index.html` em um navegador moderno. Para testar o fluxo completo, faca uma reserva na pagina publica e abra `painel.html` no mesmo navegador.
@@ -57,6 +63,8 @@ Nao ha dependencias para esta versao. Basta abrir `index.html` em um navegador m
 5. Selecione a branch `main` e a pasta `/(root)`.
 6. Salve e aguarde o GitHub informar a URL publicada.
 
+Antes de publicar, siga [CHECKLIST_LANCAMENTO.md](CHECKLIST_LANCAMENTO.md). Ela cobre identidade, reservas, painel e separacao segura entre demonstracao publica e servidor local.
+
 ## Evolucao para producao
 
 Para um produto real, os proximos passos seriam:
@@ -68,6 +76,12 @@ Para um produto real, os proximos passos seriam:
 - Politica de privacidade, termos de uso e LGPD.
 - Agenda compartilhada para varios profissionais e unidades.
 - Notificacoes automatizadas e observabilidade.
+
+## Seguranca do servidor local
+
+No projeto local com `server.mjs`, as rotas administrativas de reservas exigem o token informado por `BARBER_ADMIN_TOKEN`. O painel envia esse token apenas para consultar reservas, alterar status, confirmar o PIX simulado ou alterar configuracoes. A pagina publica nao recebe acesso administrativo.
+
+Para validar a API localmente, execute `node --test`. A suite cobre a recusa sem token e o acesso autorizado com token valido.
 
 ## Estrutura
 
